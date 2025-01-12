@@ -6,12 +6,12 @@
 /*   By: hverdugo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 13:11:25 by hverdugo          #+#    #+#             */
-/*   Updated: 2024/11/27 14:54:22 by hverdugo         ###   ########.fr       */
+/*   Updated: 2025/01/12 15:55:29 by hverdugo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
-
+/*
 int	convert(int c)
 {
 	int	base;
@@ -30,28 +30,26 @@ int	convert(int c)
 	}
 	return (res);
 }
-
+*/
 void	send(int pid, char *str)
 {
 	int	i;
-	int	x;
 	int	base;
 
 	i = 0;
 	while (str[i])
 	{
-		base = 7;
-		x = convert(str[i]);
-		while (base > 0)
+		base = 6;
+		while (base >= 0)
 		{
-			if (x % 2 == 0)
-				kill(pid, SIGUSR1);
-			else
+			if (str[i] >> base & 1)
 				kill(pid, SIGUSR2);
-			x = x / 10;
+			else
+				kill(pid, SIGUSR1);
 			base--;
-			usleep(100);
+			usleep(10);
 		}
+		usleep(200);
 		i++;
 	}
 }

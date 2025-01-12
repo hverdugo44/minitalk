@@ -6,12 +6,12 @@
 /*   By: hverdugo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:03 by hverdugo          #+#    #+#             */
-/*   Updated: 2024/11/27 14:48:28 by hverdugo         ###   ########.fr       */
+/*   Updated: 2025/01/12 15:30:45 by hverdugo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
-
+/*
 void	convert(int byte)
 {
 	int	res;
@@ -30,22 +30,23 @@ void	convert(int byte)
 	}
 	ft_putchar_fd((char)res, 1);
 }
-
+*/
 void	text(int signal)
 {
-	static char	letra[7];
-	static int	i = 6;
+	static char	c = 0;
+	static int	i = 0;
 
-	if (signal == SIGUSR1)
-		letra[i] = '0';
-	else if (signal == SIGUSR2)
-		letra[i] = '1';
-	i--;
-	if (i < 0)
+	if (signal == SIGUSR2)
+		c |= 1;
+	i++;
+	if (i == 7)
 	{
-		i = 6;
-		convert(ft_atoi(letra));
+		i = 0;
+		write(1, &c, 1);
+		c = 0;
 	}
+	else
+		c <<= 1;
 }
 
 int	main(void)
@@ -59,7 +60,6 @@ int	main(void)
 	{
 		signal(SIGUSR1, text);
 		signal(SIGUSR2, text);
-		pause();
 	}
 	return (0);
 }
