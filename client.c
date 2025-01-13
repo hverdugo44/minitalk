@@ -6,7 +6,7 @@
 /*   By: hverdugo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 13:11:25 by hverdugo          #+#    #+#             */
-/*   Updated: 2025/01/12 15:55:29 by hverdugo         ###   ########.fr       */
+/*   Updated: 2025/01/12 22:31:26 by hverdugo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	send(int pid, char *str)
 			else
 				kill(pid, SIGUSR1);
 			base--;
-			usleep(10);
+			usleep(20);
 		}
-		usleep(200);
+		usleep(300);
 		i++;
 	}
 }
